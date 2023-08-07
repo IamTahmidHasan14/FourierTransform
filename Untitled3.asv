@@ -1,0 +1,28 @@
+%filtering int the frequency domain
+n=0:99;
+N=100;
+x=cos((4*pi*n)/N)+rand([1,N]);
+X=fftshift(fft(x));
+subplot(5,1,1);
+plot(x);
+title('noisy signal FS');
+subplot(5,1,2);
+stem(-50:49,abs(X));
+title('noisy signal FS');
+H=zeros([1,N]);
+for k=1:N
+    if abs(k-N/2) <= 2
+        H(k)=1;
+    end
+end
+subplot(5,1,3);
+stem(-50:49,H);
+title('noisy signal FS');
+Y=X.*H;
+y=real(ifft(fftshift(Y)));
+subplot(5,1,4);
+title('noisy signal FS');
+stem(abs(X));
+subplot(5,1,5);
+plot(y);
+title('noisy signal FS');
